@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+<script>
+// // date is prefunctiioned on javascript
+// new Date holds an object that references to the hours and minutes called. 7-9 grabs the data from that object
+// checkTime will make it so 6:09 shows up at 6:09 instead of 6:9
+// innerHTML is whatever is in the div tabs
+//var t allows the clock to consistetly update. 500 means half a second (is in milliseconds)
+function startTime() {
+    var today=new Date();
+    var h=today.getHours();
+    var m=today.getMinutes();
+    var s=today.getSeconds();
+    var a=today.getMilliseconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    a = checkTime(a);
+    document.getElementById('txt').innerHTML = h+":"+m+":"+s+":"+a;
+    document.getElementById('txt').style.font = "bold 20px tahoma";
+    document.getElementById('txt').style.color = "white";
+    backgroundTime(m);
+    var t = setTimeout(function(){startTime()},1);
+}
+
+function checkTime(i) {
+    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+function backgroundTime(m) {
+    if(m%2 === 1) {
+         document.bgColor = '000000';
+    }
+    else {
+         document.bgColor = 'CC0099';
+    }
+};
+
+</script>
+</head>
+
+<body onload="startTime()">
+<!-- actually holds text -->
+<div id="txt"></div>
+
+</body>
+</html>
