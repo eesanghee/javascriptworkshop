@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Favorite Places in New York</title>
+        <style>
+            body {
+                background: #f3ffff;
+                font-family: garamond;
+                text-align: center;
+            }
+            .image {
+                width: 250px;
+            }
+            li {
+                display: inline;
+            }
+            .box {
+                width: 800px;
+                margin: 0 auto;
+                border: 1px solid gray;
+                background: white;
+                top:0;
+            }
+            #lightbox {
+                position:fixed;
+                top:0; 
+                left:0; 
+                width:100%; 
+                height:100%; 
+                background:rgba(224,224,224, .8); 
+                text-align:center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="box">
+            <h1> Favorite Places in New York </h1>
+            <ul>
+                <li> <a href="batteryparkcity.jpg" class="click"><img src="batteryparkcity.jpg" class="image"></a></li>
+                <li> <a href="highline.jpg" class="click"><img src = "highline.jpg" class="image"></a></li>
+                <li> <a href="brooklynbridge.jpg" class="click"><img src="brooklynbridge.jpg" class="image"> </a></li>
+            </ul>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.6.2.min.js"></script>
+        <script>
+        jQuery(document).ready(function($) {
+            
+            $('.click').click(function(e) {   
+                //prevent default action (hyperlink)
+                e.preventDefault();
+                //Get clicked link href
+                var image_href = $(this).attr("href");
+                /*  
+                If the lightbox window HTML already exists in document, 
+                change the img src to to match the href of whatever link was clicked
+                
+                If the lightbox window HTML doesn't exists, create it and insert it.
+                (This will only happen the first time around)
+                */
+                if ($('#lightbox').length > 0) { // #lightbox exists
+                    
+                    //place href as img src value
+                    $('#content').html('<img src="' + image_href + '" />');
+                    
+                    //show lightbox window - you could use .show('fast') for a transition
+                    $('#lightbox').show();
+                }
+                
+                else { //#lightbox does not exist - create and insert (runs 1st time only)
+                    
+                    //create HTML markup for lightbox window
+                    var lightbox = 
+                    '<div id="lightbox">' +
+                        '<p>Click to close</p>' +
+                        '<div id="content">' + //insert clicked link's href into img src
+                            '<img src="' + image_href +'" />' +
+                        '</div>' +  
+                    '</div>';
+                        
+                    //insert lightbox HTML into page
+                    $('body').append(lightbox);
+                }
+                
+            });
+            
+            //Click anywhere on the page to get rid of lightbox window
+            $('#lightbox').live('click', function() { //must use live, as the lightbox element is inserted into the DOM
+                $('#lightbox').hide();
+            });
+
+        });
+    </script>
+
+    </body>
+<html>
